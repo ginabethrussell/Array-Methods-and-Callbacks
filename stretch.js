@@ -24,3 +24,10 @@ console.log(getWorldCupAppearances(fifaData, 'BRA'));
 console.log(getWorldCupAppearances(fifaData, 'USA'));
 
 // - [ ] Use `.map` to format country names into `<h1>` HTML headers.
+function formatMatchesToHTML(data){
+    const htmlGameTitles = data.map(game => {
+        return `<h1>${game['Away Team Name']} versus ${game['Home Team Name']}</h1>`;
+    })
+    return htmlGameTitles;
+}
+console.log(formatMatchesToHTML(fifaData));
