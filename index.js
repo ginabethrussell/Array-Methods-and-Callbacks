@@ -37,6 +37,7 @@ console.log(awayTeamGoals);
 
 // console.log(fifaData.filter(item => item.Year === 1950));
 console.log("Task 2 Finals Data - Missing 1950")
+
 function getFinals(data) {
     return data.filter(item => item.Stage === "Final");
 };
@@ -44,7 +45,7 @@ const finals = getFinals(fifaData);
 console.log(finals);
 
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
-console.log("Task 3 - Return an array of all the years i nthe finals data set")
+console.log("Task 3 - Return an array of all the years in the finals data set")
 function getYears(callback, data) {
     return callback(data).map(item => item.Year);
 };
@@ -234,12 +235,31 @@ console.log(getGoals(fifaData));
 
 /* Stretch 4: Write a function called badDefense() that accepts a parameter `data` and calculates the team with the most goals scored against them per appearance (average goals against) in the World Cup finals */
 
-function badDefense(/* code here */) {
+// function badDefense(data, getFinals) {
+//    const finals = getFinals(data);
+//    console.log(finals);
+//     let goalsAgainstTeams = finals.map( game => {
+//         let homeTeam = game['Home Team Name'];
+//         let goalsAgainstHome = game['Away Team Goals'];
+//         let awayTeam = game['Away Team Name'];
+//         let goalsAgainstAway = game['Home Team Goals'];
+//         return [{[homeTeam]: goalsAgainstHome}, {[awayTeam]:goalsAgainstAway}];
+//     });
+//     goalsAgainstTeams = [].concat(...goalsAgainstTeams);
+//     const letGoalsAgainstArr = [];
+//     goalsAgainstTeams.forEach(item => {
+//         if (!(Object.keys(item)[0]) in letGoalsAgainstArr){
+//             letGoalsAgainstArr.push({[Object.keys(item)[0]]:[Object.values(item)[0]]} );
+//         }else {
 
-    /* code here */
+//         }
+//         console.log(Object.values(item)[0]);
+//     });
+   
 
-};
-
-badDefense();
+        
+//     return goalsAgainstTeams;
+// }
+// console.log(badDefense(fifaData, getFinals));
 
 /* If you still have time, use the space below to work on any stretch goals of your chosing as listed in the README file. */
