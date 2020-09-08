@@ -7,7 +7,7 @@
 // - [ ] Use `.map` to format country names into `<h1>` HTML headers.
 
 import { fifaData } from './fifa.js';
-console.log(fifaData);
+// console.log(fifaData);
 
 console.log('Stretch');
 // - [ ] Create a function that takes country initials as a parameter and returns their total number of World Cup appearances.

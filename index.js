@@ -1,7 +1,7 @@
 import { fifaData } from './fifa.js';
-console.log(fifaData);
+// console.log(fifaData);
 
-console.log('its working');
+// console.log('its working');
 // ⚽️ M  V P ⚽️ //
 
 /* Task 1: Investigate the data above. Practice accessing data by console.log-ing the following pieces of data */
@@ -139,11 +139,12 @@ function getCountryWins(data, teamInitials) {
            return total;
        }
     },0);
-    return `${teamInitials} has ${numWins} World Cup Final win(s).`;
+    return `${teamInitials} has ${numWins} World Cup win(s).`;
 }
 
 console.log(getCountryWins(fifaData, 'BRA'));
 console.log(getCountryWins(fifaData, 'GER'));
+console.log(getCountryWins(fifaData, 'FRG'));
 console.log(getCountryWins(fifaData, 'ITA'));
 
 
@@ -234,32 +235,46 @@ console.log(getGoals(fifaData));
 
 
 /* Stretch 4: Write a function called badDefense() that accepts a parameter `data` and calculates the team with the most goals scored against them per appearance (average goals against) in the World Cup finals */
+console.log('Stretch 4: Bad Defense, find the team with the most goals scored against them per appearance in World Cup Final Games.');
+function badDefense(data, getFinals) {
+   const finals = getFinals(data);
+  
+    let goalsAgainstTeams = finals.map( game => {
+        let homeTeam = game['Home Team Name'];
+        let goalsAgainstHome = game['Away Team Goals'];
+        let awayTeam = game['Away Team Name'];
+        let goalsAgainstAway = game['Home Team Goals'];
+        return [{'name':homeTeam, 'goalsAgainst': goalsAgainstHome}, {'name': awayTeam, 'goalsAgainst':goalsAgainstAway}];
+    });
+    goalsAgainstTeams = [].concat(...goalsAgainstTeams);
 
-// function badDefense(data, getFinals) {
-//    const finals = getFinals(data);
-//    console.log(finals);
-//     let goalsAgainstTeams = finals.map( game => {
-//         let homeTeam = game['Home Team Name'];
-//         let goalsAgainstHome = game['Away Team Goals'];
-//         let awayTeam = game['Away Team Name'];
-//         let goalsAgainstAway = game['Home Team Goals'];
-//         return [{[homeTeam]: goalsAgainstHome}, {[awayTeam]:goalsAgainstAway}];
-//     });
-//     goalsAgainstTeams = [].concat(...goalsAgainstTeams);
-//     const letGoalsAgainstArr = [];
-//     goalsAgainstTeams.forEach(item => {
-//         if (!(Object.keys(item)[0]) in letGoalsAgainstArr){
-//             letGoalsAgainstArr.push({[Object.keys(item)[0]]:[Object.values(item)[0]]} );
-//         }else {
+    let goalsAgainstSummary = goalsAgainstTeams.reduce((summaryObj, scoreItem) => {
+          if (!summaryObj.hasOwnProperty(scoreItem.name)){
+            summaryObj[scoreItem.name] = {
+                'numAppearances' : 1,
+                'numGoalsAgainst' : scoreItem.goalsAgainst
+            }
+            return summaryObj;
+        }else {
+            summaryObj[scoreItem.name]['numAppearances'] += 1;
+            summaryObj[scoreItem.name]['numGoalsAgainst'] += scoreItem.goalsAgainst;
+            return summaryObj;
+        }
+    }, {});
 
-//         }
-//         console.log(Object.values(item)[0]);
-//     });
-   
+    let badDefenseTeam = Object.keys(goalsAgainstSummary)[0];
+    let highestAvgGoalsAgainst = goalsAgainstSummary[badDefenseTeam].numGoalsAgainst/goalsAgainstSummary[badDefenseTeam].numAppearances;
+    
+    for (let country in goalsAgainstSummary){
+        if (goalsAgainstSummary[country].numGoalsAgainst / goalsAgainstSummary[country].numAppearances > highestAvgGoalsAgainst){
+            badDefenseTeam = country;
+            highestAvgGoalsAgainst = goalsAgainstSummary[country].numGoalsAgainst / goalsAgainstSummary[country].numAppearances;
+        }
+    }
+    return(`${badDefenseTeam} has the worst defense in World Cup Finals: ${highestAvgGoalsAgainst}. They appeared ${goalsAgainstSummary[badDefenseTeam].numAppearances} time(s) and gave up a total of ${goalsAgainstSummary[badDefenseTeam].numGoalsAgainst} goals.`);
 
-        
-//     return goalsAgainstTeams;
-// }
-// console.log(badDefense(fifaData, getFinals));
+}
+console.log(badDefense(fifaData, getFinals));
 
-/* If you still have time, use the space below to work on any stretch goals of your chosing as listed in the README file. */
+/* If you still have time, use the space below to work on any stretch goals of your choosing as listed in the README file. */
+
