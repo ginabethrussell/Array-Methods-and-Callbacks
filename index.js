@@ -8,27 +8,28 @@ import { fifaData } from './fifa.js';
 console.log("Task 1");
 const data2014 = fifaData.filter(item => item.Year === 2014);
 const finals2014 = data2014.filter(item => item.Stage === "Final");
-console.log(finals2014);
+const worldCupFinal2014 = finals2014[0];
+console.log(worldCupFinal2014);
 
 // (a) Home Team name for 2014 world cup final
 
-const homeTeam2014 = finals2014[0]["Home Team Name"];
+const homeTeam2014 = worldCupFinal2014["Home Team Name"];
 console.log(homeTeam2014);
 
 // (b) Away Team name for 2014 world cup final
-const awayTeam2014 = finals2014[0]["Away Team Name"];
+const awayTeam2014 = worldCupFinal2014["Away Team Name"];
 console.log(awayTeam2014);
 
 // (c) Home Team goals for 2014 world cup final
-const homeTeamGoals = finals2014[0]["Home Team Goals"];
+const homeTeamGoals = worldCupFinal2014["Home Team Goals"];
 console.log(homeTeamGoals);
 
 // (d) Away Team goals for 2014 world cup final
-const awayTeamGoals = finals2014[0]["Away Team Goals"];
+const awayTeamGoals = worldCupFinal2014["Away Team Goals"];
 console.log(awayTeamGoals);
 
 // (e) Winner of 2014 world cup final
- const winner2014 = finals2014[0]["Win conditions"].split(" ")[0];
+ const winner2014 = worldCupFinal2014["Win conditions"].split(" ")[0];
  console.log(winner2014);
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
